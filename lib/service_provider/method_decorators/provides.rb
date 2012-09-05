@@ -5,7 +5,7 @@ class Provides < MethodDecorator
 
   def call(orig, this, *args, &blk)
     orig.call(*args, &blk)
-    Services.instance.put(@service_name,this)
+    Services.instance.put(@service_name.to_sym,this)
     this
   end
 end

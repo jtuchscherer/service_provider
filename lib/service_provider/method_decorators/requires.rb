@@ -5,7 +5,7 @@ class Requires < MethodDecorator
 
   def call(orig, this, *args, &blk)
     orig.call(*args, &blk)
-    this.instance_variable_set("@#{@service.to_s}", Services.instance.get(:square_service))
+    this.instance_variable_set("@#{@service.to_sym}", Services.instance.get(@service.to_sym))
     this
   end
 end
