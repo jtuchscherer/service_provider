@@ -22,7 +22,7 @@ The class that provides a dependency has to extend the ServiceProvider module an
 
 ```ruby
 class SquareService
-  extend MethodDecorators
+  extend ServiceProvider
 
   +Provides
   def initialize
