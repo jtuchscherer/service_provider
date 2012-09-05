@@ -49,7 +49,7 @@ class SuperMathService
 end
 
 describe ServiceProvider do
-  describe "providing a simople service" do
+  describe "providing a simple service" do
     it "should work for one client using one service" do
       class SquareSample
         extend MethodDecorators
