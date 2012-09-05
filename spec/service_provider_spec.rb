@@ -3,37 +3,31 @@ require "service_provider/method_decorators/requires"
 require "service_provider/method_decorators/provides"
 
 class SquareService
-  extend MethodDecorators
+  extend ServiceProvider
 
   +Provides.new(:square_service)
-
   def initialize
   end
 
   def square(num)
     num * num
   end
-
-  include ServiceProvider
 end
 
 class PlusThreeService
-  extend MethodDecorators
+  extend ServiceProvider
 
   +Provides.new(:plus_three_service)
-
   def initialize
   end
 
   def plus3(num)
     num + 3
   end
-
-  include ServiceProvider
 end
 
 class SuperMathService
-  extend MethodDecorators
+  extend ServiceProvider
 
   +Requires.new(:square_service)
   +Requires.new(:plus_three_service)
@@ -44,8 +38,6 @@ class SuperMathService
   def calculate(num)
     @plus_three_service.plus3 @square_service.square(num)
   end
-
-  include ServiceProvider
 end
 
 describe ServiceProvider do
@@ -55,7 +47,6 @@ describe ServiceProvider do
         extend MethodDecorators
 
         +Requires.new(:square_service)
-
         def initialize
         end
 
@@ -72,7 +63,6 @@ describe ServiceProvider do
         extend MethodDecorators
 
         +Requires.new("square_service")
-
         def initialize
         end
 

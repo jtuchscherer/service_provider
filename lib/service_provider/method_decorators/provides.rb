@@ -1,4 +1,6 @@
 class Provides < MethodDecorator
+  attr_reader :service_name
+  
   def initialize(service_name)
     @service_name = service_name  
   end
