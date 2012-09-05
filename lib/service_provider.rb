@@ -25,7 +25,8 @@ module ServiceProvider
     end
     
     if provide_decorator
-      Services.instance.put(provide_decorator.service_name.to_sym,self)
+      service_name = provide_decorator.service_name || ServiceProvider.underscore_string(self.name)
+      Services.instance.put(service_name.to_sym,self)
     end
   end
 
@@ -34,8 +35,17 @@ module ServiceProvider
       lambda{ |*a, &b| decorator.call(callable, orig.receiver, *a, &b) }
     end
   end
+  
+  def self.underscore_string(class_name)
+      word = class_name.dup
+      word.gsub!(/::/, '/')
+      word.gsub!(/([A-Z\d]+)([A-Z][a-z])/,'\1_\2')
+      word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+      word.tr!("-", "_")
+      word.downcase!
+      word
+  end
 end
-
 
 class Services
   include Singleton

@@ -26,6 +26,18 @@ class PlusThreeService
   end
 end
 
+class MinusTwoService
+  extend ServiceProvider
+
+  +Provides
+  def initialize
+  end
+
+  def minus2(num)
+    num - 2
+  end
+end
+
 class SuperMathService
   extend ServiceProvider
 
@@ -72,6 +84,22 @@ describe ServiceProvider do
       end
 
       SquareSample.new.do_work(2).should == 4
+    end
+    
+    it "should work when not specifying the service name" do
+      class SquareSample
+        extend MethodDecorators
+
+        +Requires.new("minus_two_service")
+        def initialize
+        end
+
+        def do_work(num)
+          @minus_two_service.minus2 (num)
+        end
+      end
+
+      SquareSample.new.do_work(4).should == 2
     end
 
     it "should work for one client using multiple service" do
