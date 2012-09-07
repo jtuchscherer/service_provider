@@ -1,6 +1,4 @@
 require "spec_helper"
-require "service_provider/method_decorators/requires"
-require "service_provider/method_decorators/provides"
 
 class SquareService
   extend ServiceProvider

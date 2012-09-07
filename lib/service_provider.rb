@@ -1,5 +1,10 @@
 require "service_provider/version"
+
 require "singleton"
+
+require "method_decorators"
+require "service_provider/method_decorators/requires"
+require "service_provider/method_decorators/provides"
 
 module ServiceProvider
   def method_added(name)
