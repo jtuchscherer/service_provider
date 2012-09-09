@@ -18,7 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
-The class that provides a dependency has to extend the ServiceProvider module and to decorate its initialize method with the Provides decorator:
+### Providing a service
+The class that provides a dependency has to extend the `ServiceProvider` module and to decorate its initialize method with the `Provides` decorator:
 
 ```ruby
 class SquareService
@@ -29,8 +30,10 @@ class SquareService
   end
 end  
 ```
+The name of the service provided defaults to the underscored class name, and can also be given as a parameter: `+Provides.new(:square_service)`.
 
-The class that requires a service has to extend the MethodDecorators and to decorate its initialize method with the Requires decorator. The argument passed into the Requires decorator will be the name of the instance variable that holds that service.
+### Using a service
+The class that requires a service has to extend the `MethodDecorators` module and to decorate its initialize method with the `Requires` decorator. The argument passed into the `Requires` decorator will be the name of the instance variable that holds that service.
 
 ```ruby
 class SquareSample
@@ -48,7 +51,7 @@ end
 
 After a service has been required it can be manually set on the object, through a setter for the instance variable, i.e. `square_service=`.
 
-Known limitatations and uglinesses
+### Known limitatations and uglinesses
 - Each class has to have an empty constructor to put the MethodDecorators before it.
 - Provider has to extend the ServiceProvider, Requirer has to extend MethodDecorators 
 
