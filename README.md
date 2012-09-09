@@ -46,8 +46,9 @@ class SquareSample
 end
 ``` 
 
-Known limitatations and uglinesses
+After a service has been required it can be manually set on the object, through a setter for the instance variable, i.e. `square_service=`.
 
+Known limitatations and uglinesses
 - Each class has to have an empty constructor to put the MethodDecorators before it.
 - Provider has to extend the ServiceProvider, Requirer has to extend MethodDecorators 
 

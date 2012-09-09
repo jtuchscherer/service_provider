@@ -132,6 +132,27 @@ describe ServiceProvider do
 
       SuperMathSample.new.do_work(19).should == 364
     end
+
+    it "should be possible to override the service by setting it explicitly" do
+      class SquareOverrideSample
+        extend MethodDecorators
+
+        +Requires.new(:square_service)
+        def initialize
+        end
+
+        def do_work(num)
+          @square_service.square (num)
+        end
+      end
+
+      square_service_mock = mock('SquareService', square: "square of a number")
+
+      square_override_sample = SquareOverrideSample.new
+      square_override_sample.square_service = square_service_mock
+      square_override_sample.do_work(2).should == "square of a number"
+    end
+
   end
 end
 
