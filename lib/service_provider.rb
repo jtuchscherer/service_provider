@@ -21,7 +21,11 @@ module ServiceProvider
   end
 
   def self.provider
-    ServiceProvider::Provider::Automatic
+    @provider ||= ServiceProvider::Provider::Automatic
+  end
+
+  def self.provider=(provider)
+    @provider = provider
   end
 
   private

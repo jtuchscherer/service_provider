@@ -153,6 +153,32 @@ describe ServiceProvider do
       square_override_sample.do_work(2).should == "square of a number"
     end
 
+    it "should be possible to override the service provider used" do
+      class SquareSample
+        extend MethodDecorators
+
+        +Requires.new(:square_service)
+        def initialize
+        end
+
+        def do_work(num)
+          @square_service.square (num)
+        end
+      end
+
+      square_service_mock = mock('SquareService', square: Math::PI)
+
+      service_provider_mock = mock('ServiceProvider')
+      service_provider_mock.stub(:add_service)
+      service_provider_mock.stub(:get_service).with(:square_service).and_return(square_service_mock)
+
+      ServiceProvider.provider = service_provider_mock
+
+      SquareSample.new.do_work(999).should == Math::PI
+
+      #cleanup
+      ServiceProvider.provider = nil
+    end
   end
 end
 

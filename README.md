@@ -17,6 +17,7 @@ Or install it yourself as:
     $ gem install service_provider
 
 ## Usage
+Service provider comes with an automatic service provider, which registers every provided service under its name. You can specify your own service provider (see below).
 
 ### Providing a service
 The class that provides a dependency has to extend the `ServiceProvider` module and to decorate its initialize method with the `Provides` decorator:
@@ -51,9 +52,26 @@ end
 
 After a service has been required it can be manually set on the object, through a setter for the instance variable, i.e. `square_service=`.
 
+### Using a custom service provider
+You might want to specify how services are provided when you have multiple classes that implement the same service or when you want to change the implementations completely, i.e. for tests. To do so, provide your own service provider class and register it with ServiceProvider:
+
+```
+class CustomServiceProvider
+  def provide(service_class, service_class_provided_service_name)
+    #how to store services
+  end
+
+  def get_service(service_name)
+    #how to retrieve services by name
+  end
+end
+
+ServiceProvider.provider_implementation = CustomServiceProvider.new
+```
+
 ### Known limitatations and uglinesses
 - Each class has to have an empty constructor to put the MethodDecorators before it.
-- Provider has to extend the ServiceProvider, Requirer has to extend MethodDecorators 
+- Provider has to extend the ServiceProvider, Requirer has to extend MethodDecorators
 
 ## Contributing
 
