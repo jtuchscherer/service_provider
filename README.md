@@ -31,7 +31,7 @@ class SquareService
   end
 end  
 ```
-The name of the service provided defaults to the underscored class name, and can also be given as a parameter: `+Provides.new(:square_service)`.
+The (suggested) name of the service provided defaults to the underscored class name, and can also be given as a parameter: `+Provides.new(:square_service)`. The standard service provider used will use this name as the name of the service. Custom service providers (see below) might not make use of this information.
 
 ### Using a service
 The class that requires a service has to extend the `MethodDecorators` module and to decorate its initialize method with the `Requires` decorator. The argument passed into the `Requires` decorator will be the name of the instance variable that holds that service.
@@ -53,9 +53,9 @@ end
 After a service has been required it can be manually set on the object, through a setter for the instance variable, i.e. `square_service=`.
 
 ### Using a custom service provider
-You might want to specify how services are provided when you have multiple classes that implement the same service or when you want to change the implementations completely, i.e. for tests. To do so, provide your own service provider class and register it with ServiceProvider:
+You might want to specify how services are provided when you have multiple classes that implement the same service or when you want to change the implementations completely, i.e. for tests. To do so, provide your own service provider and register it with `ServiceProvider`:
 
-```
+```ruby
 class CustomServiceProvider
   def provide(service_class, service_class_provided_service_name)
     #how to store services
