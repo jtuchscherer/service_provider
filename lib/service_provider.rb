@@ -1,11 +1,10 @@
 require "service_provider/version"
 
 require "singleton"
-
 require "method_decorators"
+
 require "service_provider/method_decorators/requires"
 require "service_provider/method_decorators/provides"
-
 require "service_provider/provider/automatic"
 
 module ServiceProvider
@@ -55,3 +54,5 @@ module ServiceProvider
   end
 end
 
+Kernel.const_set(:Requires, ServiceProvider::MethodDecorators::Requires)
+Kernel.const_set(:Provides, ServiceProvider::MethodDecorators::Provides)
