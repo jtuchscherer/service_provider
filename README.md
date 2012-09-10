@@ -81,7 +81,7 @@ ServiceProvider.provider_implementation = CustomServiceProvider.new
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-== License
+## License
 
 Copyright (c) Johannes Tuchscherer
 
