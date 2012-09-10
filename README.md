@@ -1,3 +1,5 @@
+![Build Status](https://secure.travis-ci.org/jtuchscherer/service_provider.png)
+
 # ServiceProvider
 
 Simple attempt to inject dependencies through method decorators (https://github.com/michaelfairley/method_decorators)
