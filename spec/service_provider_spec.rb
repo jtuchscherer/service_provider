@@ -233,6 +233,20 @@ describe ServiceProvider do
         sample.do_work(2)
         sample.do_work(2)
       end
+      
+      it "should work if object is constructed with allocate instead of new" do
+        class MethodInjectionSample
+
+          require_service(:square_service)
+
+          def do_work(num)
+            square_service.square (num)
+          end
+        end
+        
+        ServiceProvider::Provider::Automatic.should_receive(:get_service).once.with(:square_service).and_return(SquareService.new)
+        MethodInjectionSample.allocate.do_work(2).should == 4
+      end
     end
   end
 end
