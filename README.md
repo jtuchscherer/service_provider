@@ -2,7 +2,7 @@
 
 # ServiceProvider
 
-Simple attempt to inject dependencies through method decorators (https://github.com/michaelfairley/method_decorators)
+Simple attempt to inject dependencies through method decorators (https://github.com/michaelfairley/method_decorators) or meta programming.
 
 ## Installation
 
@@ -36,7 +36,7 @@ end
 The (suggested) name of the service provided defaults to the underscored class name, and can also be given as a parameter: `+Provides.new(:square_service)`. The standard service provider used will use this name as the name of the service. Custom service providers (see below) might not make use of this information.
 
 ### Using a service
-The class that requires a service has to extend the `MethodDecorators` module and to decorate its initialize method with the `Requires` decorator. The argument passed into the `Requires` decorator will be the name of the instance variable that holds that service.
+The class that requires a service has to extend the `MethodDecorators` module and to decorate its initialize method with the `Requires` decorator. The argument passed into the `Requires` decorator will be the name of the getter that will return that service.
 
 ```ruby
 class SquareSample
@@ -47,7 +47,20 @@ class SquareSample
   end
 
   def do_work(num)
-    @square_service.square(num)
+    square_service.square(num)
+  end
+end
+``` 
+
+You can also use the require_service method to inject a service. **You will have to use this method if your instances are not created with a call to Class.new, but with a call to Class.allocate. This is the case for all instances of ActiveRecord::Base that are returned from a find call.** See [here](http://paydrotalks.com/posts/89-rubys-classallocate-and-activerecordbasefind "Ruby's Class.allocate and ActiveRecord::Base.find") for some information about that
+
+```ruby
+class SquareSample
+
+  require_service(:square_service)
+  
+  def do_work(num)
+    square_service.square(num)
   end
 end
 ``` 
