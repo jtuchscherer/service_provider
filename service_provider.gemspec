@@ -2,11 +2,11 @@
 require File.expand_path('../lib/service_provider/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Your Name"]
+  gem.authors       = ["Johannes Tuchscherer"]
   gem.email         = ["jtuchscherer@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = "This is an easy tool to acomplish basic dependency injection in Ruby"
+  gem.summary       = "Dependency Injection in Ruby inspired by MethodDecorators"
+  gem.homepage      = "https://github.com/jtuchscherer/service_provider"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
