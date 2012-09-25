@@ -56,3 +56,18 @@ end
 
 Kernel.const_set(:Requires, ServiceProvider::MethodDecorators::Requires)
 Kernel.const_set(:Provides, ServiceProvider::MethodDecorators::Provides)
+
+def require_service(service_name)
+  self.send(:define_method, "#{service_name}=") do |value|
+    instance_variable_set("@#{service_name}", value)
+  end
+  self.send(:define_method, "#{service_name.to_s}") do 
+    service = instance_variable_get("@#{service_name.to_sym}")
+    unless service
+      service = ServiceProvider.provider.get_service(service_name.to_sym)
+      instance_variable_set("@#{service_name.to_sym}", service)
+    end  
+    service
+  end
+  
+end  
